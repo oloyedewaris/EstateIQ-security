@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "EstateIQ Security",
+    "slug": "estateiqsecurity",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1037B5"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "enableDangerousExperimentalLeanBuilds": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.estateiq.security"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "24897041-6027-4362-b6d3-aed1ab1a4765"
+      }
+    }
+  },
+  "runtimeVersion": "1.0.0",
+  "updates": {
+    "url": "https://u.expo.dev/..."
+  },
+  "plugins": [
+    [
+      "expo-image-picker",
+      {
+        "photosPermission": "Allow $(PRODUCT_NAME) to access your photos",
+        "cameraPermission": "Allow $(PRODUCT_NAME) to access your microphone"
+      }
+    ],
+    [
+      "expo-build-properties",
+      {
+        "android": {
+          "enableProguardInReleaseBuilds": true
+        }
+      }
+    ]
+  ]
+}
