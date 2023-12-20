@@ -38,9 +38,35 @@ const Home = (props) => {
   const deniedLog = logsData?.filter(log => log.access === 'REVOKE')?.length
   const grantLog = logsData?.filter(log => log.access === 'GRANT')?.length
 
+  const profileData = profile?.estate_user?.user;
+  const userId = profile?.estate_user?.estate_user_id;
+  const profile_image = profile?.estate_user?.profile_image;
+
+  const keyboardVerticalOffset = Platform.OS === "ios" ? 150 : 0;
+
+  const Schema = Yup.object().shape({
+    access_code: Yup.string().required('Required'),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      access_code: '',
+    },
+    validationSchema: Schema,
+    onSubmit: values => {
+      verifyMutation.mutate(values)
+    }
+  })
+
+
   useFocusEffect(
     useCallback(() => {
-      accessQuery.refetch()
+      accessQuery.refetch();
+
+      return () => {
+        setModalVisible(false);
+        formik.setFieldValue('access_code', '')
+      }
     }, [])
   )
 
@@ -55,39 +81,19 @@ const Home = (props) => {
   }, [profile?.estate_user])
 
 
-  const profileData = profile?.estate_user?.user;
-  const userId = profile?.estate_user?.estate_user_id;
-  const profile_image = profile?.estate_user?.profile_image;
-
-  const keyboardVerticalOffset = Platform.OS === "ios" ? 150 : 0;
-
   const verifyMutation = useMutation(verifyAccessLog, {
     onSuccess: res => {
       console.log('res?.data', res?.data)
+      formik.setFieldValue('access_code', '')
       if (res?.data?.error) {
         setModalVisible(false)
-        formik.setFieldValue('access_code', '')
         return Alert.alert('An error occurred', handleBackendError(res?.data))
       }
       props.navigation.navigate('verified', { data: res?.data })
     },
     onError: err => {
-      console.log('err?.response?.data', err?.response?.data)
-      Alert.alert('An error occurred', handleBackendError(err?.response?.data))
-    }
-  })
-
-  const Schema = Yup.object().shape({
-    access_code: Yup.string().required('Required'),
-  });
-
-  const formik = useFormik({
-    initialValues: {
-      access_code: '',
-    },
-    validationSchema: Schema,
-    onSubmit: values => {
-      verifyMutation.mutate(values)
+      console.log('err?.response?.data', JSON.stringify(err));
+      Alert.alert('An error occurred', handleBackendError(err?.response?.data));
     }
   })
 
@@ -131,11 +137,6 @@ const Home = (props) => {
                 <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
                   {userId}
                 </Text>
-              </Container>
-              <Container marginTop={3} height={10} width={8} verticalAlignment="center">
-                <TouchWrap>
-                  <FontAwesome name="bell" size={24} color="white" />
-                </TouchWrap>
               </Container>
             </Container>
           </TouchableOpacity>

@@ -56,7 +56,7 @@ const ReportAnIssue = (props) => {
               fontSize: 16,
             }}
           >
-            Log Issue
+            Log an issue
           </Text>
         </TouchWrap>
       </Container>

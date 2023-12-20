@@ -45,7 +45,6 @@ const HomeContainer = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="buttomTab" component={Dashboard} />
-      <Stack.Screen name="ReportAnIssue" component={ReportAnIssue} />
       <Stack.Screen name="AccessLog" component={AccessLog} />
       <Stack.Screen name="ReportIssueFill" component={ReportIssueFill} />
       <Stack.Screen name="GenerateAccessCode" component={GenerateAccessCode} />

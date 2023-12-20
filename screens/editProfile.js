@@ -278,7 +278,7 @@ const Editprofile = ({ navigation }) => {
                 <Text
                   style={{ color: Colors.appPrimaryBlue, fontWeight: "bold" }}
                 >
-                  Change Password ?
+                  Change Password
                 </Text>
               </TouchWrap>
             </Container>

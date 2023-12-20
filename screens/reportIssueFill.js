@@ -38,7 +38,6 @@ const ReportIssueFill = (props) => {
         formik.resetForm()
       },
       onError: (err) => {
-        console.log('err?.response?.data', err?.response?.data)
         Alert.alert('An error occurred', JSON.stringify(err?.response?.data))
       }
     }
@@ -48,7 +47,7 @@ const ReportIssueFill = (props) => {
     initialValues: {
       title: '',
       message: '',
-      receivers: '',
+      receivers: 'EXCOS',
       reason: '',
     },
     validationSchema: Schema,
@@ -109,22 +108,6 @@ const ReportIssueFill = (props) => {
             multiline
           />
         </Container>
-
-        <SelectDropdown
-          data={[
-            { label: 'Chief security officer', value: 'CHIEF_SECURITY_OFFICER' },
-            { label: 'Financial secretary', value: 'FINANCIAL_SECRETARY' },
-            { label: 'Estate manager', value: 'ESTATE_MANAGER' },
-            { label: 'Exco', value: 'EXCOS' },
-          ]}
-
-          onChangeText={item => formik.handleChange('receivers')(item?.value)}
-          error={(formik.errors.receivers && formik.touched.receivers) ? formik.errors.receivers : ''}
-          onBlur={formik.handleBlur('receivers')}
-          value={formik.values.receivers}
-          text='Receiver'
-          placeholder="Select"
-        />
 
         <SelectDropdown
           data={[
@@ -213,7 +196,7 @@ const ReportIssueFill = (props) => {
               horizontalAlignment="center"
             >
               <LongButton
-                onPress={() => { setModalVisible(false); props.navigation.navigate('ReportAnIssue') }}
+                onPress={() => { setModalVisible(false); props.navigation.navigate('Issues') }}
                 text={"View Issues"} width={50} np={50} />
             </Container>
           </Container>

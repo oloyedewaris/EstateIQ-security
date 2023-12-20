@@ -141,7 +141,7 @@ const Login = (props) => {
 
             <Container horizontalAlignment="center" marginTop={7}>
               <LongButton
-                hitSlop={{ bottom: 10, right: 10, left: 10, top: 10 }}
+                hitSlop={{ bottom: 20, top: 20 }}
                 isLoading={loginMutation.isLoading}
                 text={"Login"}
                 onPress={formik.handleSubmit}
