@@ -19,8 +19,6 @@ const Verified = ({ navigation }) => {
   const route = useRoute()
   const accessData = route.params?.data;
 
-  console.log('accessData', accessData)
-
   const revokeMutation = useMutation(
     (type) => {
       const formToUse = new FormData()
@@ -54,7 +52,7 @@ const Verified = ({ navigation }) => {
 
             alignItems: "center",
           }}
-          onPress={() => navigation.navigate("Settings")}
+          onPress={() => navigation.navigate("buttomTab")}
         >
           <AntDesign name="left" size={15} color="black" />
           <Text style={{ color: "black", paddingLeft: 5 }}>Back</Text>

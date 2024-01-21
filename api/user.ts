@@ -15,6 +15,10 @@ export const getUserEstateDetails = async () => {
     return await axiosInstance.get(`/estate_users/estate_user_detail/?estate_id=${id}`)
 }
 
+export const getUserEstateDetailsByEstateIdAndEmail = async (data) => {
+    return await axiosInstance.get(`/users/user_detail/?estate_id=${data?.estate_id}&email=${data?.email}`)
+}
+
 export const updateUserImage = async (body) => {
     const id = await getEstateId();
     return await axiosInstance.post(

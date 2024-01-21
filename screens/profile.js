@@ -67,7 +67,6 @@ const Profile = ({ navigation }) => {
 
   const updateImage = (file) => {
     let localUri = file.uri;
-    console.log('file', file)
     let filename = localUri.split('/').pop();
 
     // Infer the type of the image
@@ -120,7 +119,7 @@ const Profile = ({ navigation }) => {
   return (
     <Container flex={1} backgroundColor={"#FFFFFF"}>
       <ScrollView>
-        <Container marginTop={2} marginLeft={5}>
+        <Container marginTop={7} marginLeft={5}>
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>Edit profile</Text>
         </Container>
         <Container

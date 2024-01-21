@@ -37,6 +37,7 @@ import SetPassword from "../screens/setPassword";
 import Notifications from "../screens/notifications";
 import Verified from "../screens/verified";
 import Logout from "../screens/onBoarding/logout";
+import UserScreen from "../screens/user";
 
 
 const HomeContainer = () => {
@@ -80,6 +81,7 @@ const HomeContainer = () => {
       <Stack.Screen name="setPassword" component={SetPassword} />
       <Stack.Screen name="notifications" component={Notifications} />
       <Stack.Screen name="verified" component={Verified} />
+      <Stack.Screen name="user" component={UserScreen} />
       <Stack.Screen name="logout" component={Logout} />
     </Stack.Navigator>
   )

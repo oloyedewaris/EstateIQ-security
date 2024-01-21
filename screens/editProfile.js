@@ -66,8 +66,6 @@ const Editprofile = ({ navigation }) => {
     let localUri = file.uri;
     let filename = localUri.split('/').pop();
 
-    // console.log('file', file)
-
     // Infer the type of the image
     let match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;

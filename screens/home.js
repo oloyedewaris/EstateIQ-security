@@ -13,7 +13,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { Colors } from "../helper/constants";
 import { useMutation, useQuery } from "react-query";
-import { getUserEstateDetails } from "../api/user";
+import { getUserEstateDetails, getUserEstateDetailsByEstateIdAndEmail } from "../api/user";
 import LongButton from "../component/longbutton";
 import { useFormik } from "formik";
 import { getAccessLogs, verifyAccessLog } from "../api/accessCode";
@@ -26,9 +26,11 @@ import { useFocusEffect } from "@react-navigation/native";
 
 const Home = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalUserVisible, setModalUserVisible] = useState(false);
   const { authDispatch } = useContext(GlobalContext)
+  let userQueryVar = 'start'
 
-  const userDetailsQuery = useQuery(['getUserEstateDetails'], getUserEstateDetails)
+  const userDetailsQuery = useQuery(['getUserEstateDetails', userQueryVar], getUserEstateDetails)
   const profile = userDetailsQuery?.data?.data;
 
   const accessQuery = useQuery(['getAccessLogs', '', ''], () => getAccessLogs('', ''));
@@ -44,17 +46,36 @@ const Home = (props) => {
 
   const keyboardVerticalOffset = Platform.OS === "ios" ? 150 : 0;
 
-  const Schema = Yup.object().shape({
+  const SchemaAccess = Yup.object().shape({
     access_code: Yup.string().required('Required'),
   });
 
-  const formik = useFormik({
+  const SchemaUser = Yup.object().shape({
+    user: Yup.string().required('Required'),
+    estate: Yup.string().required('Required'),
+  });
+
+  const accessformik = useFormik({
     initialValues: {
       access_code: '',
     },
-    validationSchema: Schema,
+    validationSchema: SchemaAccess,
     onSubmit: values => {
       verifyMutation.mutate(values)
+    }
+  })
+
+  const userformik = useFormik({
+    initialValues: {
+      user: '',
+      estate: ''
+    },
+    validationSchema: SchemaUser,
+    onSubmit: values => {
+      verifyUserMutation.mutate({
+        estate_id: values.estate,
+        email: values.user
+      })
     }
   })
 
@@ -65,13 +86,18 @@ const Home = (props) => {
 
       return () => {
         setModalVisible(false);
-        formik.setFieldValue('access_code', '')
+        setModalUserVisible(false)
+        accessformik.setFieldValue('access_code', '');
+        userformik.setFieldValue('user', '');
+        userformik.setFieldValue('estate', '');
+        userQueryVar = 'end'
       }
     }, [])
   )
 
 
   useEffect(() => {
+    console.log('profile?.estate_user?.user_type', profile?.estate_user?.user_type)
     if (profile?.estate_user && (profile?.estate_user?.user_type !== 'SECURITY' && profile?.estate_user?.user_type !== 'EXTERNAL')) {
       Alert.alert('Authentication error', 'This is a resident account. Please use the resident app for this account', [{
         text: 'OK',
@@ -83,8 +109,7 @@ const Home = (props) => {
 
   const verifyMutation = useMutation(verifyAccessLog, {
     onSuccess: res => {
-      console.log('res?.data', res?.data)
-      formik.setFieldValue('access_code', '')
+      accessformik.setFieldValue('access_code', '')
       if (res?.data?.error) {
         setModalVisible(false)
         return Alert.alert('An error occurred', handleBackendError(res?.data))
@@ -92,7 +117,21 @@ const Home = (props) => {
       props.navigation.navigate('verified', { data: res?.data })
     },
     onError: err => {
-      console.log('err?.response?.data', JSON.stringify(err));
+      Alert.alert('An error occurred', handleBackendError(err?.response?.data));
+    }
+  });
+
+  const verifyUserMutation = useMutation(getUserEstateDetailsByEstateIdAndEmail, {
+    onSuccess: res => {
+      userformik.setFieldValue('user', '')
+      userformik.setFieldValue('estate', '')
+      if (res?.data?.error) {
+        setModalUserVisible(false)
+        return Alert.alert('An error occurred', handleBackendError(res?.data))
+      }
+      props.navigation.navigate('user', { data: res?.data })
+    },
+    onError: err => {
       Alert.alert('An error occurred', handleBackendError(err?.response?.data));
     }
   })
@@ -113,7 +152,6 @@ const Home = (props) => {
               <Container
                 width={27}
                 height={10}
-                // backgroundColor={"red"}
                 borderRadius={50}
                 marginTop={7}
                 marginLeft={5}
@@ -255,6 +293,12 @@ const Home = (props) => {
               text={'Verify Access Code'}
             />
           </Container>
+          <Container horizontalAlignment="center" marginTop={1}>
+            <LongButton
+              onPress={() => setModalUserVisible(true)}
+              text={'Verify User'}
+            />
+          </Container>
         </ScrollView>
       </KeyboardAvoidingView>
 
@@ -301,9 +345,9 @@ const Home = (props) => {
                 <Text style={{ textAlign: 'center', marginTop: 4, color: '#9E9E9E' }}>(Access & Exit/Waybill/Staff ID)</Text>
               </Container>
               <TextInput
-                onChangeText={formik.handleChange('access_code')}
-                onBlur={formik.handleBlur('access_code')}
-                value={formik.values.access_code}
+                onChangeText={accessformik.handleChange('access_code')}
+                onBlur={accessformik.handleBlur('access_code')}
+                value={accessformik.values.access_code}
                 placeholder={'Enter access code'}
                 style={{
                   height: 45,
@@ -311,7 +355,7 @@ const Home = (props) => {
                   backgroundColor: "#FFFFFF",
                   borderRadius: 2,
                   paddingLeft: 10,
-                  borderColor: (formik.errors.access_code && formik.touched.access_code) ? "#D00000" : "#D9D9D9",
+                  borderColor: (accessformik.errors.access_code && accessformik.touched.access_code) ? "#D00000" : "#D9D9D9",
                   borderWidth: 1,
                   marginTop: 15
                 }}
@@ -330,7 +374,109 @@ const Home = (props) => {
                 text={"Verify"}
                 width={50}
                 np={50}
-                onPress={formik.handleSubmit}
+                onPress={accessformik.handleSubmit}
+              />
+            </Container>
+          </Container>
+        </Container>
+      </Modal>
+
+      <Modal onRequestClose={() => setModalUserVisible(false)} animationType="slide" visible={modalUserVisible} transparent>
+        <Container
+          flex={1}
+          verticalAlignment="center"
+          horizontalAlignment="center"
+          backgroundColor={"rgba(0, 0, 0, 0.7)"}
+        >
+          <Container
+            height={47}
+            width={90}
+            verticalAlignment="center"
+            horizontalAlignment="center"
+            backgroundColor={"white"}
+            borderRadius={10}
+          >
+            <Container width={10} marginLeft={70}>
+              <TouchWrap onPress={() => setModalUserVisible(false)}>
+                <AntDesign name="close" size={24} color="black" />
+              </TouchWrap>
+            </Container>
+            <Container width={90} direction="row">
+              <Container
+                width={90}
+                verticalAlignment="center"
+                horizontalAlignment="center"
+              >
+                <Text
+                  style={{
+                    color: Colors.appBlack,
+                    fontSize: 20,
+                    fontWeight: "700",
+                  }}
+                >
+                  User Details
+                </Text>
+              </Container>
+            </Container>
+
+            <Container width={75}>
+              <Container>
+                <Text style={{ textAlign: 'center', marginTop: 30, color: '#9E9E9E' }}>User email</Text>
+              </Container>
+              <TextInput
+                onChangeText={userformik.handleChange('user')}
+                onBlur={userformik.handleBlur('user')}
+                value={userformik.values.user}
+                placeholder={'Enter user email'}
+                style={{
+                  height: 45,
+                  width: "100%",
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: 2,
+                  paddingLeft: 10,
+                  borderColor: (userformik.errors.user && userformik.touched.user) ? "#D00000" : "#D9D9D9",
+                  borderWidth: 1,
+                  marginTop: 15
+                }}
+              // keyboardType="number-pad"
+              />
+            </Container>
+
+            <Container width={75}>
+              <Container>
+                <Text style={{ textAlign: 'center', marginTop: 30, color: '#9E9E9E' }}>Estate ID</Text>
+              </Container>
+              <TextInput
+                onChangeText={userformik.handleChange('estate')}
+                onBlur={userformik.handleBlur('estate')}
+                value={userformik.values.estate}
+                placeholder={'Enter estate ID'}
+                style={{
+                  height: 45,
+                  width: "100%",
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: 2,
+                  paddingLeft: 10,
+                  borderColor: (userformik.errors.estate && userformik.touched.estate) ? "#D00000" : "#D9D9D9",
+                  borderWidth: 1,
+                  marginTop: 15
+                }}
+              // keyboardType="number-pad"
+              />
+            </Container>
+
+            <Container
+              marginTop={4}
+              width={90}
+              verticalAlignment="center"
+              horizontalAlignment="center"
+            >
+              <LongButton
+                isLoading={verifyUserMutation.isLoading}
+                text={"Verify"}
+                width={50}
+                np={50}
+                onPress={userformik.handleSubmit}
               />
             </Container>
           </Container>

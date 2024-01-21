@@ -74,7 +74,6 @@ const SetPassword = (props) => {
             flexDirection: "row",
             height: 20,
             width: 100,
-
             alignItems: "center",
           }}
           onPress={() => props.navigation.goBack()}
@@ -82,7 +81,7 @@ const SetPassword = (props) => {
           <AntDesign name="left" size={15} color="white" />
           <Text style={{ color: "white", paddingLeft: 5 }}>Back</Text>
         </TouchableOpacity>
-        <Container marginLeft={5} marginTop={3}>
+        <Container marginLeft={7} marginTop={3}>
           <Text style={{ fontSize: 18, fontWeight: "bold", color: "white" }}>
             Change your password
           </Text>
