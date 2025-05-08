@@ -2,7 +2,7 @@
   "expo": {
     "name": "EstateIQ Security",
     "slug": "estateiqsecurity",
-    "version": "1.0.0",
+    "version": "4.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -16,7 +16,9 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.estateiq.security"
+      "bundleIdentifier": "com.estateiq.security",
+      "buildNumber": "3",
+      "versionCode": 4
     },
     "android": {
       "enableDangerousExperimentalLeanBuilds": true,
@@ -24,7 +26,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.estateiq.security"
+      "package": "com.estateiq.security",
+      "versionCode": 7
     },
     "web": {
       "favicon": "./assets/favicon.png"

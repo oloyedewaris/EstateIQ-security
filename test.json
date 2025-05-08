@@ -1,5 +1,22 @@
 {
-    "created_by": null,
+    "created_by": {
+        "estate": "5eaace2c-c94a-41a6-aaf4-7c69a4f2ae00",
+        "estate_user_id": "PE8909",
+        "id": "abca75f0-8ba2-4858-bb30-6e3125a0176e",
+        "profile_image": "/media/profile_image/Screenshot_2024-01-24_at_19.43.09.png",
+        "role": "OTHERS",
+        "status": "ACTIVE",
+        "timestamp": "2023-12-06T07:16:57.366261Z",
+        "user": {
+            "email": "oloyedewaris@gmail.com",
+            "first_name": "Waris",
+            "id": "d64f1a04-8da1-4cab-beaf-d363415eea72",
+            "last_name": "Oloyede",
+            "mobile": 2348108745769
+        },
+        "user_category": "OTHERS",
+        "user_type": "ADMIN"
+    },
     "designation": null,
     "emergency_service": true,
     "estate": {
@@ -19,25 +36,25 @@
         "timestamp": "2023-12-06T07:16:57.357573Z"
     },
     "estate_street": null,
-    "estate_user_id": "PE8909",
+    "estate_user_id": "PE7152",
     "estate_zone": null,
     "gate_pass": true,
-    "id": "abca75f0-8ba2-4858-bb30-6e3125a0176e",
-    "invited": false,
+    "id": "16b2bb49-f80f-434a-a305-2b8f5806d6a1",
+    "invited": true,
     "on_to_one_message": true,
-    "profile_image": null,
+    "profile_image": "/media/profile_image/Screenshot-0101-103740.png",
     "relationship": null,
     "role": "OTHERS",
     "status": "ACTIVE",
-    "timestamp": "2023-12-06T07:16:57.366261Z",
+    "timestamp": "2024-01-17T12:35:54.144051Z",
     "user": {
-        "email": "oloyedewaris@gmail.com",
-        "first_name": "Waris",
-        "id": "d64f1a04-8da1-4cab-beaf-d363415eea72",
-        "last_name": "Oloyede",
-        "mobile": 2348108745769
+        "email": "megij38447@tsderp.com",
+        "first_name": "WarisSec",
+        "id": "95e3215a-d801-48dc-989d-168f93d8e9b3",
+        "last_name": "OloyedeSec",
+        "mobile": 8108745769
     },
-    "user_category": "OTHERS",
-    "user_type": "ADMIN",
+    "user_category": "EXCOS",
+    "user_type": "SECURITY",
     "utility_portal": true
 }

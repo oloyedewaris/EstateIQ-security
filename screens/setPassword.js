@@ -33,11 +33,13 @@ const SetPassword = (props) => {
 
   const Schema = Yup.object().shape({
     password1: Yup.string().required('Required')
+      // .min(8, 'Password must be a minimum of eight characters'),
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/,
         'Password must be a minimum of eight characters, a uppercase, a lowercase and a number character'
       ),
     password2: Yup.string().required('Required')
+      // .min(8, 'Password must be a minimum of eight characters'),
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/,
         'Password must be a minimum of eight characters, a uppercase, a lowercase and a number character'

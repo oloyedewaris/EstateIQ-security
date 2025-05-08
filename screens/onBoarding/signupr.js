@@ -16,7 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
 import InputCard from "../../component/inputCard";
-import { Colors, FONT_FAMILY, RH, RW, RF, RR } from "../../helper/constants";
+import { Colors } from "../../helper/constants";
 import LongButton from "../../component/longbutton";
 
 const Signup = (props) => {
@@ -122,13 +122,13 @@ const Signup = (props) => {
                         >
                           {hide ? (
                             <Ionicons
-                              name="ios-eye-outline"
+                              name="eye-outline"
                               size={20}
                               color="#757575"
                             />
                           ) : (
                             <Ionicons
-                              name="ios-eye-off-outline"
+                              name="eye-off-outline"
                               size={20}
                               color="black"
                             />
@@ -168,13 +168,13 @@ const Signup = (props) => {
                         >
                           {hide2 ? (
                             <Ionicons
-                              name="ios-eye-outline"
+                              name="eye-outline"
                               size={20}
                               color="#757575"
                             />
                           ) : (
                             <Ionicons
-                              name="ios-eye-off-outline"
+                              name="eye-off-outline"
                               size={20}
                               color="black"
                             />

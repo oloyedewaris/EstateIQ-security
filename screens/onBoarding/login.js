@@ -45,7 +45,7 @@ const Login = (props) => {
         ToastLong('An error occurred try again')
     },
     onError: (err) => {
-      Alert.alert('Login Error', handleBackendError(err?.response?.data))
+      Alert.alert('Login Error', handleBackendError(err?.response?.data));
     }
   })
 
@@ -139,9 +139,9 @@ const Login = (props) => {
               </TouchWrap>
             </Container>
 
+
             <Container horizontalAlignment="center" marginTop={7}>
               <LongButton
-                hitSlop={{ bottom: 20, top: 20 }}
                 isLoading={loginMutation.isLoading}
                 text={"Login"}
                 onPress={formik.handleSubmit}
@@ -150,7 +150,7 @@ const Login = (props) => {
 
             <Container
               width={100}
-              height={20}
+              // height={20}
               verticalAlignment="center"
               horizontalAlignment="center"
             >

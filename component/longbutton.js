@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
   ActivityIndicator,
 } from "react-native";
 
@@ -15,17 +16,20 @@ import { useState } from "react";
 
 import { Colors, RW } from "../helper/constants";
 
-export default function LongButton({ hitSlop, np, width, borderWidth, disabled, isLoading, onPress, text, ...rest }) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalSeen, setModalSeen] = useState(false);
-  const keyboardVerticalOffset = Platform.OS === "ios" ? 150 : 10;
-  const [reminder, SetReminder] = useState();
-
+export default function LongButton({
+  np,
+  width,
+  borderWidth,
+  disabled,
+  isLoading,
+  onPress,
+  text,
+  ...rest
+}) {
   return (
     <Container direction="row">
       <Container width={np || 85}>
-        <TouchableOpacity
-          hitSlop={hitSlop}
+        <TouchableHighlight
           disabled={isLoading || disabled}
           style={{
             height: 40,
@@ -42,13 +46,13 @@ export default function LongButton({ hitSlop, np, width, borderWidth, disabled, 
           {...rest}
         >
           {isLoading ? (
-            <ActivityIndicator color={'white'} />
+            <ActivityIndicator color={"white"} />
           ) : (
             <Text style={{ color: "white", fontWeight: "bold", fontSize: 15 }}>
               {text}
             </Text>
           )}
-        </TouchableOpacity>
+        </TouchableHighlight>
       </Container>
     </Container>
   );

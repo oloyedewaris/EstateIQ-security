@@ -1,21 +1,16 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Modal,
-  KeyboardAvoidingView,
-  TextInput,
-} from "react-native";
+import { Text, TextInput } from "react-native";
 
-import { Container, ImageWrap, TouchWrap } from "../helper";
+import { Container, TouchWrap } from "../helper";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
-export default function InputCardPassword({ error, text, placeholder, editable, ...rest }) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalSeen, setModalSeen] = useState(false);
-  const keyboardVerticalOffset = Platform.OS === "ios" ? 150 : 10;
-  const [reminder, SetReminder] = useState();
+export default function InputCardPassword({
+  error,
+  text,
+  placeholder,
+  editable,
+  ...rest
+}) {
   const [hide, setHide] = useState(true);
 
   return (
@@ -38,7 +33,10 @@ export default function InputCardPassword({ error, text, placeholder, editable, 
             secureTextEntry={hide}
             {...rest}
           />
-          <TouchWrap hitSlop={{ bottom: 10, right: 10, left: 10, top: 10 }} onPress={() => setHide(!hide)}>
+          <TouchWrap
+            hitSlop={{ bottom: 10, right: 10, left: 10, top: 10 }}
+            onPress={() => setHide(!hide)}
+          >
             <Container
               height={6}
               width={8}
@@ -47,22 +45,18 @@ export default function InputCardPassword({ error, text, placeholder, editable, 
               horizontalAlignment="center"
             >
               {!hide ? (
-                <Ionicons
-                  name="ios-eye-outline"
-                  size={20}
-                  color="#757575"
-                />
+                <Ionicons name="eye-outline" size={20} color="#757575" />
               ) : (
-                <Ionicons
-                  name="ios-eye-off-outline"
-                  size={20}
-                  color="black"
-                />
+                <Ionicons name="eye-off-outline" size={20} color="black" />
               )}
             </Container>
           </TouchWrap>
         </Container>
-        {error && <Text style={{ fontSize: 10, color: '#D00000', fontWeight: '300' }}>{error}</Text>}
+        {error && (
+          <Text style={{ fontSize: 10, color: "#D00000", fontWeight: "300" }}>
+            {error}
+          </Text>
+        )}
       </Container>
     </Container>
   );

@@ -73,8 +73,6 @@ const Verified = ({ navigation }) => {
           horizontalAlignment="center"
         >
           <Text style={{ fontWeight: '700', color: '#1037B5', fontSize: 25 }}>Code Verified</Text>
-          {/* <Text style={{ fontWeight: '500', color: '#616161', fontSize: 16, marginTop: 14 }}>Wednesday, September 09,1 1, &16 2023</Text>
-          <Text style={{ fontWeight: '500', color: '#616161', fontSize: 16, marginTop: 6 }}>10:00AM - 7:00PM</Text> */}
         </Container>
 
 
@@ -121,7 +119,7 @@ const Verified = ({ navigation }) => {
               }}>{accessData?.access_log_type}</Text>
           </Container>
 
-          {accessData?.access_code && (
+          {Boolean(accessData?.access_code) && (
             <Container
               width={90}
               height={7}
@@ -134,7 +132,7 @@ const Verified = ({ navigation }) => {
             </Container>
           )}
 
-          {accessData?.first_name && (
+          {Boolean(accessData?.first_name) && (
             <Container
               width={90}
               height={7}
@@ -149,7 +147,7 @@ const Verified = ({ navigation }) => {
             </Container>
           )}
 
-          {accessData?.access_type && (
+          {Boolean(accessData?.access_type) && (
             <Container
               width={90}
               height={7}
@@ -162,7 +160,7 @@ const Verified = ({ navigation }) => {
             </Container>
           )}
 
-          {accessData?.category && (
+          {Boolean(accessData?.category) && (
             <Container
               width={90}
               height={7}
@@ -175,7 +173,7 @@ const Verified = ({ navigation }) => {
             </Container>
           )}
 
-          {accessData?.vehicle_number && (
+          {Boolean(accessData?.vehicle_number) && (
             <Container
               width={90}
               height={7}
@@ -188,7 +186,7 @@ const Verified = ({ navigation }) => {
             </Container>
           )}
 
-          {accessData?.from_date && (
+          {Boolean(accessData?.from_date) && (
             <Container
               width={90}
               height={7}
@@ -201,7 +199,7 @@ const Verified = ({ navigation }) => {
             </Container>
           )}
 
-          {accessData?.to_date && (
+          {Boolean(accessData?.to_date) && (
             <Container
               width={90}
               height={7}
@@ -214,7 +212,7 @@ const Verified = ({ navigation }) => {
             </Container>
           )}
 
-          {accessData?.gender && (
+          {Boolean(accessData?.gender) && (
             <Container
               width={90}
               height={7}
@@ -227,7 +225,7 @@ const Verified = ({ navigation }) => {
             </Container>
           )}
 
-          {accessData?.quantity && (
+          {Boolean(accessData?.quantity) && (
             <Container
               width={90}
               height={7}
@@ -240,7 +238,7 @@ const Verified = ({ navigation }) => {
             </Container>
           )}
 
-          {accessData?.phone && (
+          {Boolean(accessData?.phone) && (
             <Container
               width={90}
               height={7}

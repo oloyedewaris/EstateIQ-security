@@ -1,22 +1,15 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Modal,
-  KeyboardAvoidingView,
-  TextInput,
-} from "react-native";
+import { Text, TextInput } from "react-native";
 
-import { Container, ImageWrap, TouchWrap } from "../helper";
+import { Container } from "../helper";
 
-import { useState } from "react";
-
-export default function InputCard({ error, text, placeholder, keyboardType, editable, ...rest }) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalSeen, setModalSeen] = useState(false);
-  const keyboardVerticalOffset = Platform.OS === "ios" ? 150 : 10;
-  const [reminder, SetReminder] = useState();
-
+export default function InputCard({
+  error,
+  text,
+  placeholder,
+  keyboardType,
+  editable,
+  ...rest
+}) {
   return (
     <Container marginTop={2}>
       <Container width={85}>
@@ -38,7 +31,11 @@ export default function InputCard({ error, text, placeholder, keyboardType, edit
           editable={editable}
           {...rest}
         />
-        {error && <Text style={{ fontSize: 10, color: '#D00000', fontWeight: '300' }}>{error}</Text>}
+        {error && (
+          <Text style={{ fontSize: 10, color: "#D00000", fontWeight: "300" }}>
+            {error}
+          </Text>
+        )}
       </Container>
     </Container>
   );

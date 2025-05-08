@@ -653,7 +653,7 @@ export const TextInputBox = (props) => {
           keyboardType={props.keyboardType}
           returnKeyType={
             props.keyboardType == "numeric" ||
-            props.keyboardType == "number-pad"
+              props.keyboardType == "number-pad"
               ? "done"
               : "done"
           }

@@ -2,6 +2,7 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
 import { Container, ImageWrap, TouchWrap } from "../helper/index";
 import { AntDesign } from "@expo/vector-icons";
@@ -15,6 +16,7 @@ const UserScreen = ({ navigation }) => {
   const estateUserData = route.params?.data?.estate_user;
   const estateData = route.params?.data?.estate_user?.estate;
   const userData = route.params?.data?.estate_user?.user;
+
 
   return (
     <Container flex={1} backgroundColor={"#FFFFFF"}>
@@ -36,12 +38,22 @@ const UserScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         <Container
+          mt={2}
           width={100}
           height={10}
           verticalAlignment="center"
           horizontalAlignment="center"
         >
-          <ImageWrap width={15} source={AppIcons.check} fit="contain" />
+          {estateUserData?.profile_image ? (
+            <Image
+              borderRadius={200}
+              fit="contain"
+              style={{ width: 100, height: 100 }}
+              source={{ uri: `https://api.estateiq.ng/${estateUserData?.profile_image}` }}
+            />
+          ) : (
+            <ImageWrap width={15} source={AppIcons.check} fit="contain" />
+          )}
         </Container>
 
         <Container
@@ -49,7 +61,7 @@ const UserScreen = ({ navigation }) => {
           verticalAlignment="center"
           horizontalAlignment="center"
         >
-          <Text style={{ fontWeight: '700', color: '#1037B5', fontSize: 25 }}>User Verified</Text>
+          <Text style={{ marginTop: 20, fontWeight: '700', color: '#1037B5', fontSize: 25 }}>User Verified</Text>
         </Container>
 
 
@@ -70,10 +82,10 @@ const UserScreen = ({ navigation }) => {
                 marginTop: 39,
                 borderBottomWidth: 3,
                 borderBottomColor: '#F1CD15'
-              }}>Member's detail</Text>
+              }}>Status</Text>
           </Container>
 
-          {userData?.first_name && (
+          {Boolean(userData?.first_name) && (
             <Container
               width={90}
               height={7}
@@ -81,14 +93,14 @@ const UserScreen = ({ navigation }) => {
               horizontalAlignment="space-between"
               direction="row"
             >
-              <Text style={{ fontWeight: '500', color: '#616161', fontSize: 16, }}>Member's name:</Text>
+              <Text style={{ fontWeight: '500', color: '#616161', fontSize: 16, }}>Name:</Text>
               <Text style={{ fontWeight: '500', color: '#000', fontSize: 16, }}>
                 {userData?.first_name} {userData?.last_name}
               </Text>
             </Container>
           )}
 
-          {userData?.email && (
+          {Boolean(userData?.email) && (
             <Container
               width={90}
               height={7}
@@ -100,8 +112,7 @@ const UserScreen = ({ navigation }) => {
               <Text style={{ fontWeight: '500', color: '#000', fontSize: 16, }}>{userData?.email}</Text>
             </Container>
           )}
-
-          {userData?.mobile && (
+          {Boolean(userData?.mobile) && (
             <Container
               width={90}
               height={7}
@@ -113,53 +124,7 @@ const UserScreen = ({ navigation }) => {
               <Text style={{ fontWeight: '500', color: '#000', fontSize: 16, }}>{userData?.mobile}</Text>
             </Container>
           )}
-        </Container>
-
-        <Container
-          width={100}
-          height={0.3}
-          marginTop={1}
-          backgroundColor={Colors.appInactiveGrey}
-        />
-
-
-        <Container
-          width={100}
-          paddingHorizontal={5}
-        >
-
-          <Container
-            width={90}
-            verticalAlignment="center"
-            horizontalAlignment="flex-start"
-          >
-            <Text
-              style={{
-                fontWeight: '700',
-                color: '#000',
-                fontSize: 16,
-                marginTop: 39,
-                borderBottomWidth: 3,
-                borderBottomColor: '#F1CD15'
-              }}>Estate detail</Text>
-          </Container>
-
-          {estateData?.name && (
-            <Container
-              width={90}
-              height={7}
-              verticalAlignment="center"
-              horizontalAlignment="space-between"
-              direction="row"
-            >
-              <Text style={{ fontWeight: '500', color: '#616161', fontSize: 16, }}>Name:</Text>
-              <Text style={{ fontWeight: '500', color: '#000', fontSize: 16, }}>
-                {estateData?.name}
-              </Text>
-            </Container>
-          )}
-
-          {estateData?.address && (
+          {Boolean(estateData?.address) && (
             <Container
               width={90}
               height={7}
@@ -171,20 +136,17 @@ const UserScreen = ({ navigation }) => {
               <Text style={{ fontWeight: '500', color: '#000', fontSize: 16, }}>{estateData?.address}</Text>
             </Container>
           )}
-
-          {estateData?.estate_id && (
-            <Container
-              width={90}
-              height={7}
-              verticalAlignment="center"
-              horizontalAlignment="space-between"
-              direction="row"
-            >
-              <Text style={{ fontWeight: '500', color: '#616161', fontSize: 16, }}>Estate ID:</Text>
-              <Text style={{ fontWeight: '500', color: '#000', fontSize: 16, }}>{estateData?.estate_id}</Text>
-            </Container>
-          )}
         </Container>
+
+        <Container
+          width={100}
+          height={0.3}
+          marginTop={1}
+          marginBottom={10}
+          backgroundColor={Colors.appInactiveGrey}
+        />
+
+
 
         <Container
           width={100}
@@ -197,8 +159,8 @@ const UserScreen = ({ navigation }) => {
         </Container>
 
 
-      </ScrollView>
-    </Container>
+      </ScrollView >
+    </Container >
   );
 };
 export default UserScreen;
